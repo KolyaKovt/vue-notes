@@ -1,0 +1,88 @@
+<script setup lang="ts">
+import { ref } from "vue"
+
+const { toggleModal, showModal, onSubmit } = defineProps<{
+  toggleModal: () => void
+  onSubmit: (text: string) => void
+  showModal: boolean
+}>()
+
+const handleClick = (e: MouseEvent) => {
+  if (e.target === e.currentTarget) toggleModal()
+}
+
+const note = ref<string>("")
+
+const formSumbit = (e: Event) => {
+  e.preventDefault()
+  onSubmit(note.value)
+  note.value = ""
+  toggleModal()
+}
+</script>
+<template>
+  <div class="fallback" :class="{ open: showModal }" @click="handleClick">
+    <form @submit="formSumbit" class="addNoteForm">
+      <textarea v-model="note" class="textField"></textarea>
+      <button class="addBtn">Add</button>
+    </form>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.fallback {
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.327);
+  transition: var(--default-transition);
+  visibility: hidden;
+  opacity: 0;
+
+  &::after {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    content: "x";
+    font-size: 30px;
+    line-height: 10px;
+  }
+}
+.open {
+  visibility: visible;
+  opacity: 1;
+}
+.addNoteForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  width: 600px;
+  height: 400px;
+  border-radius: 20px;
+  background-color: white;
+  padding: 40px;
+}
+.textField {
+  width: 100%;
+  height: 250px;
+  border-radius: 10px;
+  resize: none;
+  padding: 20px;
+}
+.addBtn {
+  background-color: orange;
+  padding: 10px 20px;
+  border-radius: 20px;
+
+  &:hover,
+  &:focus {
+    background-color: rgb(205, 133, 0);
+    transition: var(--default-transition);
+  }
+}
+</style>
