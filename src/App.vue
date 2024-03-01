@@ -29,7 +29,7 @@ const toggleModal = () => {
   showModal.value = !showModal.value
 }
 
-const onSubmit = (note: string) => {
+const addNote = (note: string) => {
   notes.value.push({
     id: nanoid(),
     text: note,
@@ -54,7 +54,7 @@ const onSubmit = (note: string) => {
   </main>
 
   <Modal
-    :onSubmit="onSubmit"
+    :addNote="addNote"
     :showModal="showModal"
     :toggleModal="toggleModal"
   />

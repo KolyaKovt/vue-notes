@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue"
 
-const { toggleModal, showModal, onSubmit } = defineProps<{
+const { toggleModal, showModal, addNote } = defineProps<{
   toggleModal: () => void
-  onSubmit: (text: string) => void
+  addNote: (text: string) => void
   showModal: boolean
 }>()
 
@@ -13,16 +13,15 @@ const handleClick = (e: MouseEvent) => {
 
 const note = ref<string>("")
 
-const formSumbit = (e: Event) => {
-  e.preventDefault()
-  onSubmit(note.value)
+const formSumbit = () => {
+  addNote(note.value)
   note.value = ""
   toggleModal()
 }
 </script>
 <template>
   <div class="fallback" :class="{ open: showModal }" @click="handleClick">
-    <form @submit="formSumbit" class="addNoteForm">
+    <form v-on:submit.prevent="formSumbit" class="addNoteForm">
       <textarea v-model="note" class="textField"></textarea>
       <button class="addBtn">Add</button>
     </form>
