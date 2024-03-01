@@ -38,6 +38,7 @@ const formSumbit = (e: Event) => {
   align-items: center;
   width: 100vw;
   height: 100vh;
+  padding: 0 20px;
   background-color: rgba(0, 0, 0, 0.327);
   transition: var(--default-transition);
   visibility: hidden;
@@ -62,14 +63,18 @@ const formSumbit = (e: Event) => {
   justify-content: space-between;
   align-items: start;
   width: 600px;
-  height: 400px;
+  height: 350px;
   border-radius: 20px;
   background-color: white;
   padding: 40px;
+  
+  @media (min-width: 768px) {
+    height: 400px;
+  }
 }
 .textField {
   width: 100%;
-  height: 250px;
+  height: calc(100% - 65px);
   border-radius: 10px;
   resize: none;
   padding: 20px;
