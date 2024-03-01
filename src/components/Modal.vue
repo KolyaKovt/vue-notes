@@ -13,9 +13,17 @@ const handleClick = (e: MouseEvent) => {
 
 const note = ref<string>("")
 
+const validationText = ref<string>("")
+
 const formSumbit = () => {
-  addNote(note.value)
+  if (!note.value.trim()) {
+    validationText.value = "The field can't be empty"
+    return
+  }
+
+  addNote(note.value.trim())
   note.value = ""
+  validationText.value = ""
   toggleModal()
 }
 </script>
@@ -23,6 +31,7 @@ const formSumbit = () => {
   <div class="fallback" :class="{ open: showModal }" @click="handleClick">
     <form v-on:submit.prevent="formSumbit" class="addNoteForm">
       <textarea v-model="note" class="textField"></textarea>
+      <p class="validationText" v-if="validationText">{{ validationText }}</p>
       <button class="addBtn">Add</button>
     </form>
   </div>
@@ -66,7 +75,7 @@ const formSumbit = () => {
   border-radius: 20px;
   background-color: white;
   padding: 40px;
-  
+
   @media (min-width: 768px) {
     height: 400px;
   }
@@ -77,6 +86,9 @@ const formSumbit = () => {
   border-radius: 10px;
   resize: none;
   padding: 20px;
+}
+.validationText {
+  color: red;
 }
 .addBtn {
   background-color: orange;
