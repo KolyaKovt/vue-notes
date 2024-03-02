@@ -29,7 +29,7 @@ const formSumbit = () => {
 </script>
 <template>
   <div class="fallback" :class="{ open: showModal }" @click="handleClick">
-    <form v-on:submit.prevent="formSumbit" class="addNoteForm">
+    <form @submit.prevent="formSumbit" class="addNoteForm">
       <textarea v-model="note" class="textField"></textarea>
       <p class="validationText" v-if="validationText">{{ validationText }}</p>
       <button class="addBtn">Add</button>
